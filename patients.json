@@ -1,87 +1,123 @@
 {
     "patients": [
-      {
-        "id": 1,
-        "name": "John Doe",
-        "age": 45,
-        "gender": "Male",
-        "notes": [
-          {
-            "note_id": 1,
-            "doctor": "Dr. Smith",
-            "date": "2025-09-20",
-            "content": "Diagnosed with high blood pressure. Prescribed Amlodipine."
-          },
-          {
-            "note_id": 2,
-            "doctor": "Dr. Taylor",
-            "date": "2025-09-23",
-            "content": "Follow-up visit. Blood pressure improved."
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "name": "Alice Johnson",
-        "age": 32,
-        "gender": "Female",
-        "notes": [
-          {
-            "note_id": 1,
-            "doctor": "Dr. Brown",
-            "date": "2025-09-18",
-            "content": "Complained about migraines. Prescribed Ibuprofen."
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "name": "Michael Green",
-        "age": 60,
-        "gender": "Male",
-        "notes": [
-          {
-            "note_id": 1,
-            "doctor": "Dr. Patel",
-            "date": "2025-09-10",
-            "content": "Diabetic check-up. Adjusted insulin dosage."
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "name": "Sophia White",
-        "age": 28,
-        "gender": "Female",
-        "notes": [
-          {
-            "note_id": 1,
-            "doctor": "Dr. Lee",
-            "date": "2025-09-15",
-            "content": "Routine check-up. All vitals normal."
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "name": "David Kim",
-        "age": 39,
-        "gender": "Male",
-        "notes": [
-          {
-            "note_id": 1,
-            "doctor": "Dr. Martinez",
-            "date": "2025-09-12",
-            "content": "Back pain complaint. Suggested physiotherapy."
-          },
-          {
-            "note_id": 2,
-            "doctor": "Dr. Martinez",
-            "date": "2025-09-19",
-            "content": "Follow-up. Improvement noted."
-          }
-        ]
-      }
-    ]
-  }
-  
+        {
+            "id": 1,
+            "name": "John Doe",
+            "age": 45,
+            "gender": "Male",
+            "height": 1.78,
+            "weight": 88.0,
+            "bmi": 27.77,
+            "verdict": "Overweight",
+            "notes": [
+                {
+                    "note_id": 1,
+                    "doctor": "Dr. Smith",
+                    "date": "2025-09-20",
+                    "content": "Diagnosed with high blood pressure. Prescribed Amlodipine."
+                },
+                {
+                    "note_id": 2,
+                    "doctor": "Dr. Taylor",
+                    "date": "2025-09-23",
+                    "content": "Follow-up visit. Blood pressure improved."
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Alice Johnson",
+            "age": 32,
+            "gender": "Female",
+            "height": 1.65,
+            "weight": 60.0,
+            "bmi": 22.04,
+            "verdict": "Normal",
+            "notes": [
+                {
+                    "note_id": 1,
+                    "doctor": "Dr. Brown",
+                    "date": "2025-09-18",
+                    "content": "Complained about migraines. Prescribed Ibuprofen."
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Michael Green",
+            "age": 60,
+            "gender": "Male",
+            "height": 1.72,
+            "weight": 95.0,
+            "bmi": 32.11,
+            "verdict": "Obese",
+            "notes": [
+                {
+                    "note_id": 1,
+                    "doctor": "Dr. Patel",
+                    "date": "2025-09-10",
+                    "content": "Diabetic check-up. Adjusted insulin dosage."
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Sophia White",
+            "age": 28,
+            "gender": "Female",
+            "height": 1.7,
+            "weight": 54.0,
+            "bmi": 18.69,
+            "verdict": "Normal",
+            "notes": [
+                {
+                    "note_id": 1,
+                    "doctor": "Dr. Lee",
+                    "date": "2025-09-15",
+                    "content": "Routine check-up. All vitals normal."
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "David Kim",
+            "age": 39,
+            "gender": "Male",
+            "height": 1.8,
+            "weight": 82.0,
+            "bmi": 25.31,
+            "verdict": "Overweight",
+            "notes": [
+                {
+                    "note_id": 1,
+                    "doctor": "Dr. Martinez",
+                    "date": "2025-09-12",
+                    "content": "Back pain complaint. Suggested physiotherapy."
+                },
+                {
+                    "note_id": 2,
+                    "doctor": "Dr. Martinez",
+                    "date": "2025-09-19",
+                    "content": "Follow-up. Improvement noted."
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Naive cunt",
+            "age": 85,
+            "height": 1.7,
+            "weight": 85.0,
+            "gender": "Male",
+            "notes": [
+                {
+                    "note_id": 1,
+                    "doctor": "Dr. string",
+                    "date": "2025-10-03",
+                    "content": "all good"
+                }
+            ],
+            "bmi": 29.41,
+            "verdict": "Overweight"
+        }
+    ]}
