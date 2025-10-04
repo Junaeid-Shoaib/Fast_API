@@ -39,6 +39,12 @@
                     "doctor": "Dr. Brown",
                     "date": "2025-09-18",
                     "content": "Complained about migraines. Prescribed Ibuprofen."
+                },
+                {
+                    "note_id": 3,
+                    "doctor": "dr. string",
+                    "date": "2025-10-04",
+                    "content": "string- note adding test"
                 }
             ]
         },
@@ -46,11 +52,9 @@
             "id": 3,
             "name": "Michael Green",
             "age": 60,
-            "gender": "Male",
             "height": 1.72,
-            "weight": 95.0,
-            "bmi": 32.11,
-            "verdict": "Obese",
+            "weight": 78.0,
+            "gender": "Male",
             "notes": [
                 {
                     "note_id": 1,
@@ -58,7 +62,9 @@
                     "date": "2025-09-10",
                     "content": "Diabetic check-up. Adjusted insulin dosage."
                 }
-            ]
+            ],
+            "bmi": 26.37,
+            "verdict": "Overweight"
         },
         {
             "id": 4,
@@ -101,23 +107,6 @@
                     "content": "Follow-up. Improvement noted."
                 }
             ]
-        },
-        {
-            "id": 6,
-            "name": "Naive cunt",
-            "age": 85,
-            "height": 1.7,
-            "weight": 85.0,
-            "gender": "Male",
-            "notes": [
-                {
-                    "note_id": 1,
-                    "doctor": "Dr. string",
-                    "date": "2025-10-03",
-                    "content": "all good"
-                }
-            ],
-            "bmi": 29.41,
-            "verdict": "Overweight"
         }
-    ]}
+    ]
+}

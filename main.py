@@ -1,9 +1,10 @@
 import json
 from fastapi import FastAPI, Path, HTTPException, Query
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 from datetime import date
 from pydantic import BaseModel, Field, computed_field
-from typing import Annotated, Literal, List
+from typing import Annotated, Literal, List, Optional
 
 app = FastAPI()  # Create an app instance
 
@@ -24,6 +25,7 @@ class Patient(BaseModel):
     gender: Annotated[Literal['Male', 'Female'], Field(..., description="Gender of the patient")]
     notes: List[Note] = Field(default_factory=list)
 
+
     # ---- Auto-calculated BMI ----
     @computed_field
     @property
@@ -42,6 +44,15 @@ class Patient(BaseModel):
         elif bmi < 30:
             return "Overweight"
         return "Obese"
+
+class PatientUpdate(BaseModel):
+    name: Optional[str] = None
+    age: Optional[int] = Field(None, ge=0, le=120)
+    height: Optional[float] = Field(None, gt=0, le=2.5)
+    weight: Optional[float] = Field(None, gt=0, le=300)
+    gender: Optional[Literal["Male", "Female"]] = None
+    notes: Optional[List[Note]] = None  # optional full replacement of notes list
+
 
  #helper function that loads the data from json.file
 def load_data():                           
@@ -141,4 +152,105 @@ def add_patient(patient: Patient):
     "message": "Patient added successfully",
     "patient": patient.model_dump(mode="json")
     })
- 
+
+# Update/ Add new note 
+@app.post("/patient/{patient_id}/note")
+def add_note(
+    patient_id: int = Path(..., ge=1, description="ID of the patient to add a note for"),
+    new_note: Note = ...
+):
+    data = load_data()
+    patients = data.get("patients", [])
+
+    # find the patient by ID
+    for p in patients:
+        if p["id"] == patient_id:
+            # make sure note_id is unique for that patient
+            existing_ids = [n["note_id"] for n in p["notes"]]
+            if new_note.note_id in existing_ids:
+                raise HTTPException(status_code=400, detail=f"Note ID {new_note.note_id} already exists for this patient.")
+
+            # append note (convert to JSON-safe dict)
+            p["notes"].append(jsonable_encoder(new_note))
+
+            save_data(data)
+            return {
+                "message": f"Note {new_note.note_id} added successfully for patient {p['name']}.",
+                "patient_id": patient_id,
+                "total_notes": len(p["notes"])
+            }
+
+    raise HTTPException(status_code=404, detail="Patient not found")
+
+
+@app.put("/edit/{patient_id}")
+def update_patient(
+    patient_id: int = Path(..., ge=1, description="ID of the patient to update"),
+    patient_update: PatientUpdate = ...
+):
+    data = load_data()
+    patients = data.get("patients", [])
+
+    # find the patient index
+    idx = -1
+    for i, p in enumerate(patients):
+        if p["id"] == patient_id:
+            idx = i
+            break
+
+    if idx == -1:
+        raise HTTPException(status_code=404, detail="Patient not found")
+
+    existing = patients[idx]                       # current dict
+    updates = patient_update.model_dump(exclude_unset=True, exclude_none=True)
+
+
+    # merge (incoming fields overwrite existing)
+    merged = {**existing, **updates}
+
+    # validate with full model (recomputes computed fields)
+    try:
+        updated = Patient(**merged)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+    # persist back (JSON-safe, dates → strings)
+    patients[idx] = updated.model_dump(mode="json")
+    data["patients"] = patients
+    save_data(data)
+
+    return {
+        "message": f"Patient {patient_id} updated successfully.",
+        "patient": updated
+    }
+
+
+@app.delete("/delete/{patient_id}")
+def delete_patient(patient_id: int ):
+
+    #load data
+    data = load_data()
+    patients = data.get("patients", [])
+
+    # find the patient index
+    idx = -1
+    for i, p in enumerate(patients):
+        if p["id"] == patient_id:
+            idx = i
+            break
+
+    if idx == -1:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    
+
+    # Save patient's name before deletion for message
+    deleted_name = patients[idx]["name"]
+
+
+    # remove the patient from the list
+    del patients[idx]
+
+    # save the inro database
+    save_data(data)
+
+    return JSONResponse(status_code=200, content={"message": f"Patient {patient_id}- {deleted_name} deleted successfully."})
